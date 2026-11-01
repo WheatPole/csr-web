@@ -1,0 +1,56 @@
+<head>
+    <meta charset="UTF-8">
+    <title>My Web Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Text</h1>
+    </header>
+    <div class="middle">
+        <div class="left">
+            <div class="txt">
+                Find the output of the following format:
+            </div>
+            <div id="category-text" class="txt">
+                ()
+            </div>
+            <div id="cbox" class="cbox">
+                "#include <iostream>"
+            </div>
+        </div>
+        <div class="right">
+            <div class="txt">
+                Your answer:
+            </div>
+            <!--table of single textboxes here-->
+            <div class="hmenu">
+                <button id="verifyBtn">
+                    Verify
+                </button>
+                <label for="solution">Show solution:</label>
+                <input type="checkbox" id="solution" name="sol_chbox" disabled>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <button id="randomBtn">
+                Random
+            </button>
+        </div>
+        <div class="container">
+            <button id="categoryBtn">
+                Categories
+            </button>
+        </div>
+
+        <div class="container">
+            <label for="dataset-select">Dataset:</label>
+            <select name="dataset" id="dataset-select">
+                <option value="official">Official</option>
+                <option value="generated">Generated</option>
+            </select>
+        </div>
+    </footer>
+</body>

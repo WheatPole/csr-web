@@ -2,6 +2,7 @@
     <meta charset="UTF-8">
     <title>My Web Page</title>
     <link rel="stylesheet" href="style.css">
+    <script src="gen_table.js" defer></script>
 </head>
 <body>
     <header>
@@ -9,21 +10,23 @@
     </header>
     <div class="middle">
         <div class="left">
-            <div class="txt">
-                Find the output of the following format:
+            <div class="txt bold bf">
+                Find the output of the following program:
             </div>
-            <div id="category-text" class="txt">
-                ()
+            <div id="category-text" class="txt g">
+                (Categories:)
             </div>
             <div id="cbox" class="cbox">
-                "#include <iostream>"
+                <textarea id="code" class="txtcode bold" name="code" rows="4" cols="10" placeholder="" readonly>#include <stdio.h></textarea>
             </div>
         </div>
         <div class="right">
-            <div class="txt">
+            <div class="txt bold bf">
                 Your answer:
             </div>
-            <!--table of single textboxes here-->
+            <div class="spacer"></div>
+            <div id="tableContainer">
+            </div>
             <div class="hmenu">
                 <button id="verifyBtn">
                     Verify

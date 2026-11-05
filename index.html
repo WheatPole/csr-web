@@ -2,54 +2,58 @@
     <meta charset="UTF-8">
     <title>My Web Page</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="button.css">
+    <link rel="stylesheet" href="checkbox.css">
+    <link rel="stylesheet" href="select.css">
     <script src="gen_table.js" defer></script>
 </head>
 <body>
     <header>
-        <h1>Text</h1>
+        <div class="txt bold bbf">
+            Informatika
+        </div>
     </header>
     <div class="middle">
         <div class="left">
-            <div class="txt bold bf">
+            <div class="txt bold bf" id="problem-txt">
                 Find the output of the following program:
             </div>
             <div id="category-text" class="txt g">
-                (Categories:)
+                (Categories: <span id="categories"></span>)
             </div>
             <div id="cbox" class="cbox">
-                <textarea id="code" class="txtcode bold" name="code" rows="4" cols="10" placeholder="" readonly>#include <stdio.h></textarea>
+                <textarea id="code" class="txtcode bold mf" name="code" rows="4" cols="10" placeholder="" readonly>#include <stdio.h></textarea>
             </div>
         </div>
         <div class="right">
             <div class="txt bold bf">
                 Your answer:
             </div>
-            <div class="spacer"></div>
             <div id="tableContainer">
             </div>
             <div class="hmenu">
-                <button id="verifyBtn">
+                <button id="verifyBtn" class="task-button">
                     Verify
                 </button>
-                <label for="solution">Show solution:</label>
-                <input type="checkbox" id="solution" name="sol_chbox" disabled>
+                <label for="solution" class="txt">Show solution:</label>
+                <input type="checkbox" id="solution" name="sol_chbox">
             </div>
         </div>
     </div>
     <footer>
         <div class="container">
-            <button id="randomBtn">
+            <button id="randomBtn" class="task-button">
                 Random
             </button>
         </div>
         <div class="container">
-            <button id="categoryBtn">
+            <button id="categoryBtn" class="task-button">
                 Categories
             </button>
         </div>
 
         <div class="container">
-            <label for="dataset-select">Dataset:</label>
+            <label for="dataset-select" class="txt mid mf bold">Dataset:</label>
             <select name="dataset" id="dataset-select">
                 <option value="official">Official</option>
                 <option value="generated">Generated</option>

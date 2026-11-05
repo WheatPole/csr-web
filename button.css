@@ -1,0 +1,32 @@
+.task-button {
+    padding: 8px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    color: #000000;
+
+    border: 2px solid #000000;
+    border-radius: 0;
+
+    font-family: "Times New Roman", serif;
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.task-button:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.task-button:active {
+    transform: translate(1px, 1px);
+}
+
+.task-button:focus-visible {
+    outline: 2px solid #000000;
+    outline-offset: 3px;
+}

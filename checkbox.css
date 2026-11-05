@@ -1,0 +1,57 @@
+:root {
+  --paper: #ffffff;
+  --ink: #000000;
+  --ink-soft: #555555;
+  --hover: #e8e8e8;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111111; --ink: #f2f2f2; --ink-soft: #aaaaaa; --hover: #2a2a2a;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111111; --ink: #f2f2f2; --ink-soft: #aaaaaa; --hover: #2a2a2a;
+}
+ 
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  display: inline-grid;
+  place-content: center;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  cursor: pointer;
+}
+ 
+/* the checkmark */
+input[type="checkbox"]::after {
+  content: "";
+  width: 5px;
+  height: 10px;
+  border: solid var(--ink);
+  border-width: 0 2px 2px 0;
+  transform: translateY(-1px) rotate(45deg) scale(0);
+}
+input[type="checkbox"]:checked::after {
+  transform: translateY(-1px) rotate(45deg) scale(1);
+}
+ 
+input[type="checkbox"]:hover { background: var(--hover); }
+input[type="checkbox"]:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+ 
+input[type="checkbox"]:indeterminate::after {
+  width: 10px; height: 0;
+  border-width: 0 0 2px 0;
+  transform: none;
+}
+
+input[type="checkbox"]:disabled { border-style: dashed; cursor: not-allowed; }
+input[type="checkbox"]:disabled::after { border-color: var(--ink-soft); }
+
+.check { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 700; }
+.check:has(:disabled) { color: var(--ink-soft); cursor: not-allowed; }

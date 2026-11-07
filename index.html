@@ -5,24 +5,25 @@
     <link rel="stylesheet" href="button.css">
     <link rel="stylesheet" href="checkbox.css">
     <link rel="stylesheet" href="select.css">
-    <script src="gen_table.js" defer></script>
+    <script src="table.js" defer></script>
+    <script src="categories.js" defer></script>
 </head>
 <body>
     <header>
-        <div class="txt bold bbf">
+        <div class="txt bold bbf txtshadow">
             Informatika
         </div>
     </header>
     <div class="middle">
         <div class="left">
             <div class="txt bold bf" id="problem-txt">
-                Find the output of the following program:
-            </div>
-            <div id="category-text" class="txt g">
-                (Categories: <span id="categories"></span>)
+                <span class="num">1</span>&ensp;Find the output of the following program:
             </div>
             <div id="cbox" class="cbox">
                 <textarea id="code" class="txtcode bold mf" name="code" rows="4" cols="10" placeholder="" readonly>#include <stdio.h></textarea>
+            </div>
+            <div id="category-text" class="txt g">
+                (Categories: <span id="categories"></span>)
             </div>
         </div>
         <div class="right">
@@ -30,34 +31,55 @@
                 Your answer:
             </div>
             <div id="tableContainer">
+                <!-- table.js -->
             </div>
             <div class="hmenu">
                 <button id="verifyBtn" class="task-button">
-                    Verify
+                    Submit
                 </button>
                 <label for="solution" class="txt">Show solution:</label>
-                <input type="checkbox" id="solution" name="sol_chbox">
+                <input type="checkbox" id="solution" name="sol_chbox" disabled>
             </div>
         </div>
     </div>
     <footer>
         <div class="container">
-            <button id="randomBtn" class="task-button">
-                Random
+            <button id="nextBtn" class="task-button">
+                Next
             </button>
         </div>
         <div class="container">
-            <button id="categoryBtn" class="task-button">
+            <button id="categoryBtn" class="task-button" commandfor = "category-dialog" command="show-modal">
                 Categories
             </button>
         </div>
 
         <div class="container">
-            <label for="dataset-select" class="txt mid mf bold">Dataset:</label>
+            <label for="dataset-select" class="txt mid mf bold">Dataset: </label>
             <select name="dataset" id="dataset-select">
                 <option value="official">Official</option>
                 <option value="generated">Generated</option>
             </select>
         </div>
     </footer>
+    <dialog id="category-dialog">
+        <div id="inner" class="flex-column">
+            <div class="txt bold bf m-bottom">Categories</div>
+            <div id="category-list" class="category-grid txt">
+                <!-- categories.js -->
+            </div> <br>
+            <div class="flex-row">
+                <label for="include-disabled" class="txt bold" style="margin-right: 7px;">Include disabled? </label>
+                <input type="checkbox" id="include-disabled" name="inc_chbox" checked>
+            </div> <br>
+            <div class="txt bold bf m-bottom">Format</div>
+            <div id="format-list" class="category-grid txt">
+                <!-- categories.js -->
+            </div> <br>
+            <div class="category-dialog-bottom flex-row">
+                <button class="simple-button" onclick="toggleAll();">Enable/disable all</button>
+                <button class="simple-button" commandfor="category-dialog" command="close">Close</button>
+            </div>
+        </div>
+    </dialog>
 </body>

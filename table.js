@@ -74,8 +74,12 @@ function moveCell(input, dcol, drow) {
     const maxCols = table.rows[0].cells.length;
     const maxRows = table.rows.length;
 
-    var col = clamp(Number(input.dataset.col) + dcol, 0, maxCols - 1);
-    var row = clamp(Number(input.dataset.row) + drow, 0, maxRows - 1);
+    let res = 1;
+    var col = Number(input.dataset.col) + dcol;
+    var row = Number(input.dataset.row) + drow;
+
+    col = clamp(col, 0, maxCols - 1);
+    row = clamp(row, 0, maxRows - 1);
 
     const nextInput = container.querySelector(
         `.input-box[data-row="${row}"][data-col="${col}"]`
@@ -84,6 +88,7 @@ function moveCell(input, dcol, drow) {
         nextInput.focus();
         nextInput.select();
     }
+    return nextInput;
 }
 
 container.addEventListener("keydown", (event) => {
@@ -91,13 +96,26 @@ container.addEventListener("keydown", (event) => {
         return;
  
     // for deletion
-    if (event.key === "Backspace" || event.key === "Delete") {
+    if (event.key == "Backspace" || event.key == "Delete") {
         event.preventDefault();
 
         event.target.value = " ";
         moveCell(event.target, -1, 0);
 
         return;
+    }
+
+    // next line
+    if (event.key == "Enter") {
+        var res = moveCell(event.target, 0, 1);
+ 
+        var nextInput = container.querySelector(
+            `.input-box[data-row="${res.dataset.row}"][data-col="0"]`
+        );
+        if (nextInput) {
+            nextInput.focus();
+            nextInput.select();
+        }
     }
 
     const dirs = {
@@ -122,7 +140,7 @@ container.addEventListener("input", (event) => {
 
     if (!input.matches(".input-box"))
         return;
-    
+
     if (event.inputType.startsWith("insert")) {
         if (input.value.length > 0)
             moveCell(input, 1, 0);

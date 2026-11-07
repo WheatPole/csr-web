@@ -24,7 +24,7 @@ select {
   font-weight: bold;
   color: var(--ink);
   background-color: var(--paper);
-  border: 1px solid var(--ink);
+  border: 2px solid var(--ink);
   border-radius: 0;
   cursor: pointer;
   /* chevron + divider line */
@@ -65,10 +65,16 @@ option {
   background: var(--paper);
   padding: 8px 12px;
 }
-option:checked, option:hover {
-  background: var(--ink) linear-gradient(var(--ink), var(--ink));
+option:checked {
+  background: var(--ink) linear-gradient(var(--ink-soft), var(--ink));
   color: var(--paper);
 }
+
+option:hover {
+  background: var(--ink) linear-gradient(var(--ink), var(--ink-soft));
+  color: var(--paper);
+}
+
 option:disabled { 
     color: var(--ink-soft); 
 }
@@ -77,6 +83,6 @@ optgroup {
   font-family: "Times New Roman", serif;
   font-size: 16px;
   font-weight: bold;
-  color: var(--ink);
+  color: var(--ink-soft);
 }
  

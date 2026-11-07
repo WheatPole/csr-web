@@ -1,4 +1,5 @@
 .task-button {
+    margin: 2px 4px;
     padding: 8px 18px;
     display: flex;
     align-items: center;
@@ -22,11 +23,39 @@
     color: #ffffff;
 }
 
-.task-button:active {
-    transform: translate(1px, 1px);
-}
-
 .task-button:focus-visible {
     outline: 2px solid #000000;
+    outline-offset: 3px;
+}
+
+
+
+.simple-button {
+    margin: 1px 3px;
+    padding: 2px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    color: #000000;
+
+    border: 1px solid #000000;
+    border-radius: 0;
+
+    font-family: "Times New Roman", serif;
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.simple-button:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.simple-button:focus-visible {
+    outline: 1px solid #000000;
     outline-offset: 3px;
 }

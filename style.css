@@ -243,3 +243,116 @@ footer > .container {
   float: right;
   justify-content: right;
 }
+
+
+
+
+
+
+
+/* ===== Responsive: tablets and phones ===== */
+@media (max-width: 800px) {
+  /* Let the page scroll instead of forcing everything into one screen */
+  body {
+    height: auto;
+    min-height: 100dvh;
+  }
+
+  .bbf {
+    font-size: 1.8em;
+  }
+
+  /* Stack the two columns */
+  .middle {
+    flex-direction: column;
+    flex: none;
+    min-height: auto;
+    padding: 0 6px;
+  }
+
+  .left {
+    flex: none;
+    padding: 10px;
+  }
+
+  /* Replace the vertical divider with a horizontal one */
+  .left::after {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: 2px;
+  }
+
+  .right {
+    padding: 10px;
+  }
+
+  /* The code box needs an explicit height once the column is no longer fixed */
+  .cbox {
+    flex: none;
+    height: 40vh;
+    min-height: 200px;
+  }
+
+  /* Answer table may be wider than the screen: scroll it sideways */
+  #tableContainer {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  /* Footer controls wrap onto multiple lines */
+  footer {
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 6px;
+  }
+
+  footer > .container {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  /* Category dialog takes most of the screen */
+  #category-dialog {
+    width: 92%;
+    max-height: 90dvh;
+    overflow-y: auto;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 6px 12px;
+  }
+}
+
+/* ===== Small phones ===== */
+@media (max-width: 480px) {
+  .bbf {
+    font-size: 1.5em;
+  }
+
+  .bf {
+    font-size: 1.1em;
+  }
+
+  .cbox {
+    height: 35vh;
+  }
+
+  /* Each footer control gets its own full-width row */
+  footer > .container {
+    flex: 1 1 100%;
+  }
+
+  footer .task-button,
+  footer select {
+    width: 100%;
+  }
+
+  .category-dialog-bottom {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}

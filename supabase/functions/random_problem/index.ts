@@ -23,15 +23,17 @@ const handler = withSupabase(
       return json({ error: "Method Not Allowed" }, 405);
     }
 
-    const { categories, gen } = await req.json();
+    const { categories, formatting, gen } = await req.json();
 
     if (!categories) {
       return json({ error: "Category is required" }, 400);
     }
 
+    
+
     const { data, error } = await ctx.supabase.rpc(
       "get_problems_by_categories",
-      { category_ids: categories, gen: gen }
+      { category_ids: categories, formatting_ids: formatting, gen: gen }
     );
 
     if (error) {

@@ -28,10 +28,22 @@ async function requestData() {
     const generatedDataset = document.getElementById('dataset-select').value == "generated";
 
     const ids = Array.from(checkboxes, checkbox => checkbox.id);
-    const inputCategories = ids.map(cat => cat.substring(2));
-    console.log(inputCategories);
+    var inputCategories = ids.map(cat => cat.substring(2));
+    var format = inputCategories.filter(category =>
+        ["main_only", "multiple_functions_for_execution"].includes(category)
+    );
+    // both deselected
+    if (format.length == 0) {
+        format = ["main_only", "multiple_functions_for_execution"];
+    }
+    inputCategories = inputCategories.filter(category =>
+        !["main_only", "multiple_functions_for_execution"].includes(category)
+    );
 
-    const data = await random_problem(inputCategories, generatedDataset);
+    console.log(inputCategories, format);
+
+
+    const data = await random_problem(inputCategories, format, generatedDataset);
     let code = data['data'].code;
     code = cleanup(code);
     let categories = data["categories"].map(cat => nameFromID(cat["id_text_category"]));
@@ -64,3 +76,5 @@ async function requestData() {
 
 
 document.getElementById('nextBtn').addEventListener('click', requestData);
+
+document.addEventListener('DOMContentLoaded', requestData);

@@ -5,69 +5,66 @@
 // Setup type definitions for built-in Supabase Runtime APIs
 import "@supabase/functions-js/edge-runtime.d.ts";
 import { withSupabase } from "@supabase/server";
-import { privateEncrypt } from "node:crypto";
 
-// This endpoint uses 'publishable' | 'secret' access, apiKey is required.
-// Use publishable for Client-facing, key-validated endpoints
-// Use secret for Server-to-server, internal calls
-export default {
-  fetch: withSupabase(
-    {
-      auth: ["publishable", "secret"],
-      cors: {
-        headers: {
-          "Access-Control-Allow-Origin": "http://localhost:5000",
-          "Access-Control-Allow-Headers":
-            "authorization, x-client-info, apikey, content-type, x-retry-count, traceparent, tracestate, baggage",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
-        }
-      }
-    },
-    async (req, ctx) => {
-      if (req.method !== "POST") {
-        return Response.json(
-          { error: "Method Not Allowed" },
-          { status: 405 }
-        );
-      }
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*", // or restrict to "https://wheatpole.github.io"
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+};
 
-      const { categories } = await req.json();
+const json = (body: unknown, status = 200) =>
+  Response.json(body, { status, headers: corsHeaders });
 
-      console.log("Categories: ", categories);
-
-      if (!categories) {
-        return Response.json(
-          { error: "Category is required" },
-          { status: 400 }
-        );
-      }
-
-      const { data, error } = await ctx.supabase.rpc(
-        "get_problems_by_categories",
-        {
-          category_ids: categories.array
-        }
-      );
-
-      if (error) {
-        throw error;
-      }
-
-      if (!data || data.length === 0) {
-        return Response.json(
-          { error: "Query returned no results" },
-          { status: 400 }
-        );
-      }
-
-      console.log("Data: ", data);
-
-      return Response.json(
-        { success: true, sample: data },
-        { status: 200 }
-      );
+const handler = withSupabase(
+  { auth: ["publishable", "secret"] },
+  async (req, ctx) => {
+    if (req.method !== "POST") {
+      return json({ error: "Method Not Allowed" }, 405);
     }
-  ),
+
+    const { categories, gen } = await req.json();
+
+    if (!categories) {
+      return json({ error: "Category is required" }, 400);
+    }
+
+    const { data, error } = await ctx.supabase.rpc(
+      "get_problems_by_categories",
+      { category_ids: categories, gen: gen }
+    );
+
+    if (error) {
+      return json({ error: error.message }, 500);
+    }
+
+    if (!data || data.length === 0) {
+      return json({ error: "Query returned no results" }, 400);
+    }
+
+    let ind = Math.floor(Math.random() * data.length);
+    if (ind >= data.length) ind = data.length - 1;
+    if (ind < 0) ind = 0;
+    const result = data[ind];
+    
+    const { data: cats, error: error1 } = await ctx.supabase.rpc(
+      'get_problem_categories',
+      { p_id_problem: result["id"] }
+    );
+
+    return json({ success: true, data: result, categories: cats });
+  }
+);
+
+export default {
+  fetch: (req: Request, ...rest: unknown[]) => {
+    // Answer preflight before auth ever sees it
+    if (req.method === "OPTIONS") {
+      return new Response("ok", { headers: corsHeaders });
+    }
+    // deno-lint-ignore no-explicit-any
+    return (handler as any)(req, ...rest);
+  },
 };
 
 /* To invoke locally:
@@ -77,6 +74,6 @@ export default {
 
   curl -i --location --request POST 'http://127.0.0.1:54321/functions/v1/random_problem' \
     --header 'apiKey: sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' \
-    --data '{"name":"Functions"}'
+    --data '{"categories":['multi_file', 'main_only']}'
 
 */

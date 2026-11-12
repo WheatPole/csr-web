@@ -244,6 +244,15 @@ footer > .container {
   justify-content: right;
 }
 
+.correct {
+  background-color: rgb(127, 255, 127);
+}
+
+.wrong {
+  background-color: lightcoral;
+}
+
+
 
 
 

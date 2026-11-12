@@ -59,3 +59,34 @@
     outline: 1px solid #000000;
     outline-offset: 3px;
 }
+
+
+
+.task-button:disabled,
+.task-button[aria-disabled="true"] {
+    background-color: #ffffff;
+    color: #808080;
+    border: 2px dashed #808080;
+    cursor: not-allowed;
+}
+
+/* Prevent the hover inversion on disabled buttons */
+.task-button:disabled:hover,
+.task-button[aria-disabled="true"]:hover {
+    background-color: #ffffff;
+    color: #808080;
+}
+
+.simple-button:disabled,
+.simple-button[aria-disabled="true"] {
+    background-color: #ffffff;
+    color: #808080;
+    border: 1px dashed #808080;
+    cursor: not-allowed;
+}
+
+.simple-button:disabled:hover,
+.simple-button[aria-disabled="true"]:hover {
+    background-color: #ffffff;
+    color: #808080;
+}

@@ -146,6 +146,22 @@ function toggleAll() {
     }
 }
 
+function nameFromID(id) {
+    let p = null;
+    category_list.forEach(c => {
+        if (c.id == id) {
+            p = c.name;
+        }
+    });
+
+    format_list.forEach(c => {
+        if (c.id == id) {
+            p = c.name;
+        }
+    });
+    return p;
+} 
+
 function getCheckedCategories() {
     const checked = categoryContainer.querySelectorAll('input[type="checkbox"]:checked:not(#include-disabled)');
     return checked;

@@ -146,6 +146,11 @@ function toggleAll() {
     }
 }
 
+function getCheckedCategories() {
+    const checked = categoryContainer.querySelectorAll('input[type="checkbox"]:checked:not(#include-disabled)');
+    return checked;
+}
+
 createCategoryCheckbox();
 
 categoryContainer.addEventListener('click', () => categoryContainer.close());

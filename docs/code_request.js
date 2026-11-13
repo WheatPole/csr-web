@@ -2,6 +2,7 @@ import { random_problem } from './supabase.js';
 import { resetBackground, toggleAnswerCbox, setSheet } from './code_submit.js';
 
 globalThis.problem_id = null;
+globalThis.output = null;
 
 function cleanup(code) {
     if (code[0] === '`') {
@@ -42,9 +43,9 @@ async function requestData() {
 
     console.log(inputCategories, format);
 
-
     const data = await random_problem(inputCategories, format, generatedDataset);
     let code = data['data'].code;
+    globalThis.output = data['data'].output;
     code = cleanup(code);
     let categories = data["categories"].map(cat => nameFromID(cat["id_text_category"]));
     console.log(categories);

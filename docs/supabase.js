@@ -6,17 +6,8 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
 // formatting_list - main_only, multiple_functions
 export async function random_problem(category_list, formatting_list, generated) {
-    // todo: do data validation here
     const { data, error } = await supabase.functions.invoke('random_problem', {
         body: { categories: category_list, formatting: formatting_list, gen: generated },
-    });
-    console.log("Returned:",data,error);
-    return data;
-}
-
-export async function validate_answer(char_sheet, p_id) {
-    const { data, error } = await supabase.functions.invoke('validate_answer', {
-        body: { char_sheet: char_sheet, problem_id: p_id },
     });
     console.log("Returned:",data,error);
     return data;

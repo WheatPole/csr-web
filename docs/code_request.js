@@ -43,16 +43,36 @@ async function requestData() {
 
     console.log(inputCategories, format);
 
-    const data = await random_problem(inputCategories, format, generatedDataset);
+    const { data, error } = await random_problem(inputCategories, format, generatedDataset);
+    console.log("Got",data,error);
+    if (data == null)
+        return { code: data, categories: error };
+
     let code = data['data'].code;
     globalThis.output = data['data'].output;
     code = cleanup(code);
     let categories = data["categories"].map(cat => nameFromID(cat["id_text_category"]));
-    console.log(categories);
+
     categories = categories.filter(c => c != null && c != '');
-    console.log(categories);
 
     globalThis.problem_id = data['data'].id;
+    return { code, categories };
+}
+
+async function onNextBtnClick() {
+    // set loading screen text
+    document.getElementById('code').disabled = true;
+    document.getElementById('code').innerHTML = "Loading...";
+    const { code, categories } = await requestData();
+    console.log("Got",code, categories);
+    
+    // remove loading screen text
+    document.getElementById('code').disabled = false;
+    if (code ==  null) {
+        // error stored in categories
+        document.getElementById('code').innerHTML = "Error: " + categories;
+        return;
+    }
 
     document.getElementById('code').innerHTML = code;
     document.getElementById('categories').innerHTML = categories.join(', ');
@@ -76,6 +96,6 @@ async function requestData() {
 }
 
 
-document.getElementById('nextBtn').addEventListener('click', requestData);
+document.getElementById('nextBtn').addEventListener('click', onNextBtnClick);
 
-document.addEventListener('DOMContentLoaded', requestData);
+document.addEventListener('DOMContentLoaded', onNextBtnClick);
